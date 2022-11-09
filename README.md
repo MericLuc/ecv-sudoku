@@ -38,6 +38,6 @@ It should be something like that (not garanteed) :
 
 _Rules_ : 
   - Hover a cell to select it.
-  - Enter a number between 1 - N (N being the dimension of the grid) to mark the cell.
+  - Enter a number between 1 - 9 to mark the cell.
   - Enter '0' to remove a value from a cell.
   - For the rest, I think the UI buttons are self-explanatory 😁
