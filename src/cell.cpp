@@ -67,6 +67,23 @@ Cell::Cell(const size_t x, const size_t y, QWidget* parent) noexcept
 
 /*****************************************************************************/
 void
+Cell::setColorEffect(const QColor& c) noexcept
+{
+    auto bg_effect{ new QGraphicsColorizeEffect() };
+    bg_effect->setStrength(0.8);
+    bg_effect->setColor(c);
+    _bg->setGraphicsEffect(bg_effect);
+}
+
+/*****************************************************************************/
+void
+Cell::removeColorEffect() noexcept
+{
+    _bg->setGraphicsEffect(nullptr);
+}
+
+/*****************************************************************************/
+void
 Cell::enterEvent(QEvent*)
 {
     setFocus(Qt::FocusReason::OtherFocusReason);
@@ -80,6 +97,12 @@ Cell::enterEvent(QEvent*)
 
     _lb->setGraphicsEffect(lb_effect);
 
+    auto bg_effect{ new QGraphicsBlurEffect() };
+    bg_effect->setBlurHints(QGraphicsBlurEffect::BlurHint::AnimationHint);
+    bg_effect->setBlurRadius(4);
+
+    _bg->setGraphicsEffect(bg_effect);
+
     emit hovered(true);
 }
 
@@ -88,6 +111,7 @@ void
 Cell::leaveEvent(QEvent*)
 {
     _lb->setGraphicsEffect(nullptr);
+    _bg->setGraphicsEffect(nullptr);
 
     emit hovered(false);
 }

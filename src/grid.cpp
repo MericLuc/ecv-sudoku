@@ -24,7 +24,19 @@ Grid::Grid(QWidget* parent) noexcept
     for (auto& c : _cells) {
         c->show();
         connect(c, SIGNAL(changed(Op)), this, SLOT(onCellChanged(Op)));
-        connect(c, &Cell::hovered, []() { /* TODO */ });
+        connect(c, &Cell::hovered, this, [c, this](bool hovered) {
+            for (auto cell : _cells) {
+                if (cell == c)
+                    continue;
+                if (cell->_x == c->_x || cell->_y == c->_y ||
+                    ((cell->_x / 3 == c->_x / 3 && cell->_y / 3 == c->_y / 3))) {
+                    if (hovered)
+                        cell->setColorEffect();
+                    else
+                        cell->removeColorEffect();
+                }
+            }
+        });
     }
 }
 
